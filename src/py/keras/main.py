@@ -18,8 +18,12 @@ print('Using filename: {}'.format(utils.get_model_name()))
 # define the keras model
 model = Sequential()
 model.add(Dense(512, input_shape=(28*28, ), activation='relu'))
+
+# Add hidden layers
 for l in consts.LAYERS:
     model.add(Dense(l, activation='relu'))
+    model.add(Dense(l, activation='sigmoid'))
+
 model.add(Dense(consts.RESULT_COUNT, activation='softmax'))
 
 # compile the keras model
