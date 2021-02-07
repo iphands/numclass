@@ -78,12 +78,15 @@ Y_train = np_utils.to_categorical(y_train, n_classes)
 Y_test = np_utils.to_categorical(y_test, n_classes)
 print("Shape after one-hot encoding: ", Y_train.shape)
 
+layers = [ 512, 512, 128, 128, 64, 32 ]
+lname  = '_'.join([str(l) for l in layers])
+epochs = 128
+
 # define the keras model
 model = Sequential()
 model.add(Dense(512, input_shape=(28*28, ), activation='relu'))
-model.add(Dense(512, activation='relu'))
-model.add(Dense(128, activation='relu'))
-model.add(Dense(512, activation='relu'))
+for l in layers:
+    model.add(Dense(l, activation='relu'))
 model.add(Dense(10, activation='softmax'))
 
 # compile the keras model
@@ -91,13 +94,13 @@ model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accur
 
 # training the model and saving metrics in history
 history = model.fit(X_train, Y_train,
-          batch_size=128, epochs=128,
+          batch_size=128, epochs=epochs,
           verbose=2,
           validation_data=(X_test, Y_test))
 
 # saving the model
 save_dir = './results'
-model_name = '512_128_512.h5'
+model_name = '{}-epochs_{}.h5'.format(lname, epochs)
 model_path = os.path.join(save_dir, model_name)
 model.save(model_path)
 print('Saved trained model at %s ' % model_path)

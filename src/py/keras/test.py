@@ -63,7 +63,8 @@ X_test = X_test.astype('float32')
 X_test /= 255
 
 # load the model and create predictions on the test set
-mnist_model = load_model('./results/512_128_512.h5')
+# mnist_model = load_model('./results/512_128_512.h5')
+mnist_model = load_model('./results/512_512_128_128_64_32-epochs_128.h5')
 predicted_classes = mnist_model.predict_classes(X_test)
 
 # see which we predicted correctly and which not
