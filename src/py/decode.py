@@ -12,6 +12,7 @@ def get_bytes(l):
 def get_next_image(f, shape):
     return bytearray(f.read(shape[1] * shape[2]))
 
+
 def save_image(i, data, shape):
     img = Image.fromarray(np.reshape(data, (shape[1], shape[2])), 'L')
 
@@ -38,7 +39,8 @@ def print_image(i, data, shape):
         print()
 
 
-with open('../../data/train-labels-idx1-ubyte', 'rb') as f:
+# with open('../../data/train-labels-idx1-ubyte', 'rb') as f:
+with open('../../data/t10k-labels-idx1-ubyte', 'rb') as f:
     magic = bytearray(f.read(2)) # 0x00 0x00
     dtype = f.read(1) # 0x08: unsigned byte
     dimen = f.read(1) # 0x01
@@ -61,7 +63,7 @@ for d in ['../../data/images/all', '../../data/images/all_idx']:
         os.makedirs(d)
 
 
-with open('../../data/train-images-idx3-ubyte', 'rb') as f:
+with open('../../data/t10k-images-idx3-ubyte', 'rb') as f:
     magic = bytearray(f.read(2)) # 0x00 0x00
     dtype = f.read(1) # 0x08: unsigned byte
     dimen = f.read(1) # 0x03
