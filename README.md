@@ -1,5 +1,5 @@
 # numclass
-WIP handwritten classifier trained on the MNIST digit data
+AI/ML classifier trained on the MNIST handwritten digit data
 
 ## Examples
 <table>
