@@ -19,7 +19,7 @@ class App:
         self.canvas = tk.Canvas(root, width=28**2, height=28**2)
         self.canvas.pack()
         self.canvas.old_coords = None
-        self.d = False
+        self.mousedown = False
 
         self.image = Image.new('L', (28**2, 28**2), (0x0))
         self.imdraw  = ImageDraw.Draw(self.image)
@@ -41,10 +41,10 @@ class App:
         self.imdraw.rectangle([x0, y0, x1, y1], (255))
 
     def mouse_up(self, e):
-        self.d = False
+        self.mousedown = False
 
     def mouse_down(self, e):
-        self.d = True
+        self.mousedown = True
 
     def guess(self, e):
         im = self.image.resize((28, 28), resample=Image.LANCZOS)
@@ -59,7 +59,7 @@ class App:
         self.imdraw.rectangle((0, 0, 28**2, 28**2), fill=(0))
 
     def draw(self, event):
-        if self.d:
+        if self.mousedown:
             x, y = event.x, event.y
             if self.canvas.old_coords:
                 x1, y1 = self.canvas.old_coords
