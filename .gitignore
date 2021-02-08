@@ -1,4 +1,5 @@
 /src/py/keras/results
+/src/py/keras/tmp
 /src/py/venv
 /data
 *.pyc
