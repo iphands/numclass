@@ -16,12 +16,12 @@ mnist_model = load_model(sys.argv[1])
 class App:
     def __init__(self):
         root = tk.Tk()
-        self.canvas = tk.Canvas(root, width=28**2, height=28**2)
+        self.canvas = tk.Canvas(root, width=consts.WIN_W, height=consts.WIN_H)
         self.canvas.pack()
         self.canvas.old_coords = None
         self.mousedown = False
 
-        self.image = Image.new('L', (28**2, 28**2), (0x0))
+        self.image = Image.new('L', (consts.WIN_W, consts.WIN_H), (0x0))
         self.imdraw  = ImageDraw.Draw(self.image)
 
         root.bind('<Motion>', self.draw)
@@ -56,7 +56,7 @@ class App:
 
     def clear(self, e):
         self.canvas.delete("all")
-        self.imdraw.rectangle((0, 0, 28**2, 28**2), fill=(0))
+        self.imdraw.rectangle((0, 0, consts.WIN_W, consts.WIN_H), fill=(0))
 
     def draw(self, event):
         if self.mousedown:
