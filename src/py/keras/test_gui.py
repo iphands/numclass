@@ -50,7 +50,12 @@ class App:
         im = self.image.resize((28, 28), resample=Image.LANCZOS)
         im.save('/tmp/last.jpg', 'JPEG', quality=99)
         arr = np.array(im)
-        arr = arr.reshape((1, 28*28))
+
+        if mnist_model.layers[0].name == 'conv2d':
+            arr = arr.reshape((1, 28, 28, 1))
+        else:
+            arr.reshape((1, 28*28))
+
         predicted = mnist_model.predict_classes(arr)
         print('My ML guess is: {}'.format(predicted[0]))
 

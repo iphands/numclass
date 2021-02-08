@@ -24,7 +24,7 @@ def get_label_data(file_in):
 
     return np.reshape(labels, (shape[0]))
 
-def get_image_data(file_in):
+def get_image_data(file_in, layer_type):
     images = []
     with open(file_in, 'rb') as f:
         magic = bytearray(f.read(2)) # 0x00 0x00
@@ -40,4 +40,9 @@ def get_image_data(file_in):
             images.append(data)
 
     # convert to floats and / 255 to get 0.0 - 1.0
-    return np.reshape(images, (shape[0], shape[1] * shape[2])).astype('float32') / 255
+    if layer_type == 'dense':
+        return np.reshape(images, (shape[0], shape[1] * shape[2])).astype('float32') / 255
+
+    # reshape for the conv2d layers
+    tmp = np.reshape(images, (shape[0], shape[1], shape[2])).astype('float32') / 255
+    return np.expand_dims(tmp, -1)
