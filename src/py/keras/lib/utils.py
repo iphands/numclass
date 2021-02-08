@@ -2,6 +2,10 @@ from . import consts as consts
 from keras.utils import np_utils
 
 
+def get_model_shortname():
+    lname  = '_'.join([str(l) for l in consts.LAYERS])
+    return './results/layers_{}_epochs_{}/'.format(lname, consts.EPOCHS)
+
 def get_model_name():
     lname  = '_'.join([str(l) for l in consts.LAYERS])
     return '{}-epochs_{}.h5'.format(lname, consts.EPOCHS)
