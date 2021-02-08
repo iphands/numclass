@@ -8,7 +8,7 @@ from keras.models import load_model
 from lib import consts as consts
 from lib import data_loader as loader
 
-# import sys
+# To not let numpy print() squish arrays
 # np.set_printoptions(threshold=sys.maxsize)
 
 mnist_model = load_model(sys.argv[1])
@@ -35,8 +35,9 @@ class App:
         y0 = y - r
         x1 = x + r
         y1 = y + r
+        # self.canvas.create_oval(x0, y0, x1, y1, fill='#000')
         self.canvas.create_oval(x0, y0, x1, y1, fill='#000')
-        self.imdraw.ellipse([x0, y0, x1, y1], (255))
+        self.imdraw.rectangle([x0, y0, x1, y1], (255))
 
     def mouse_up(self, e):
         self.d = False
@@ -59,7 +60,7 @@ class App:
             x, y = event.x, event.y
             if self.canvas.old_coords:
                 x1, y1 = self.canvas.old_coords
-                self.draw_circle(x, y, 20)
+                self.draw_circle(x, y, 15)
             self.canvas.old_coords = x, y
 
 App()
