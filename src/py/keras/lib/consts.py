@@ -11,5 +11,5 @@ TEST_LABEL_PATH  = '../../../data/t10k-labels-idx1-ubyte'
 
 RESULT_COUNT = 10
 
-EPOCHS = 128
-LAYERS = [ 28*28 * 2, 512, 512 ]
+EPOCHS = 256
+LAYERS = [ 28*28 * 2, 28*28, 512 ]
