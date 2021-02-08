@@ -54,10 +54,13 @@ class App:
         if mnist_model.layers[0].name == 'conv2d':
             arr = arr.reshape((1, 28, 28, 1))
         else:
-            arr.reshape((1, 28*28))
+            arr = arr.reshape((1, 28*28))
 
         predicted = mnist_model.predict_classes(arr)
-        print('My ML guess is: {}'.format(predicted[0]))
+        if predicted[0] < 10:
+            print('My ML guess is: {}'.format(predicted[0]))
+        else:
+            print('My ML guess is: NaN')
 
     def clear(self, e):
         self.canvas.delete("all")
