@@ -28,6 +28,7 @@ class App:
         root.bind('<ButtonPress-1>', self.mouse_down)
         root.bind('<ButtonRelease-1>', self.mouse_up)
         root.bind('<Escape>', self.guess)
+        root.bind('<space>', self.clear)
         root.mainloop()
 
     def draw_circle(self, x, y, r):
@@ -51,7 +52,9 @@ class App:
         arr = np.array(im)
         arr = arr.reshape((1, 28*28))
         predicted = mnist_model.predict_classes(arr)
-        print('My guess is: {}'.format(predicted[0]))
+        print('My ML guess is: {}'.format(predicted[0]))
+
+    def clear(self, e):
         self.canvas.delete("all")
         self.imdraw.rectangle((0, 0, 28**2, 28**2), fill=(0))
 
