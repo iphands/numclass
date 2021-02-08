@@ -6,10 +6,12 @@ from keras.models import load_model
 from lib import consts as consts
 from lib import data_loader as loader
 
-X_test = loader.get_image_data(consts.TEST_IMAGE_PATH)
-y_test = loader.get_label_data(consts.TEST_LABEL_PATH)
 
 mnist_model = load_model(sys.argv[1])
+
+X_test = loader.get_image_data(consts.TEST_IMAGE_PATH, mnist_model.layers[0].name)
+y_test = loader.get_label_data(consts.TEST_LABEL_PATH)
+
 predicted_classes = mnist_model.predict_classes(X_test)
 
 # see which we predicted correctly and which not
