@@ -1,5 +1,7 @@
 import os
 
+import numpy as np
+
 from lib import data_loader as loader
 from lib import utils as utils
 from lib import consts as consts
@@ -10,18 +12,17 @@ from keras.layers import Dense, Conv2D, Flatten, Dropout
 from keras.callbacks import ModelCheckpoint
 
 model = Sequential()
-# model.add(Dense(512, input_shape=(28*28, ), activation='relu'))
-
 model.add(Input(shape=(28, 28, 1)))
-model.add(Conv2D(32,  (3, 3), padding="same", activation="relu"))
-model.add(Conv2D(64,  (3, 3), padding="same", activation="relu"))
-model.add(Conv2D(32,  (6, 6), padding="same", activation="relu"))
+model.add(Conv2D(16,  (4, 4), padding="same", activation="relu"))
+model.add(Conv2D(16,  (3, 3), padding="same", activation="relu"))
+model.add(Conv2D(16,  (3, 3), padding="same", activation="relu"))
 
 model.add(Flatten())
 model.add(Dropout(0.5))
 
+model.add(Dense((28*28)*2, activation='relu'))
+model.add(Dense(512, activation='relu'))
 model.add(Dense(128, activation='relu'))
-model.add(Dense(128, activation='sigmoid'))
 
 # final layer of 10
 model.add(Dense(consts.RESULT_COUNT, activation='softmax'))
@@ -38,6 +39,12 @@ checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=0, save_best_o
 
 X_train = loader.get_image_data(consts.TRAIN_IMAGE_PATH, model.layers[0].name)
 y_train = loader.get_label_data(consts.TRAIN_LABEL_PATH)
+
+X_nan = loader.get_image_data(consts.NAN_IMAGE_PATH, model.layers[0].name)
+y_nan = np.full((len(X_nan,)), -1)
+
+X_train = np.concatenate((X_train, X_nan), axis=0)
+y_train = np.concatenate((y_train, y_nan), axis=None)
 
 X_test = loader.get_image_data(consts.TRAIN_IMAGE_PATH, model.layers[0].name)
 y_test = loader.get_label_data(consts.TRAIN_LABEL_PATH)
