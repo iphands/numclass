@@ -47,8 +47,8 @@ y_nan = np.full((len(X_nan,)), -1)
 X_train = np.concatenate((X_train, X_nan), axis=0)
 y_train = np.concatenate((y_train, y_nan), axis=None)
 
-X_test = loader.get_image_data(consts.TRAIN_IMAGE_PATH, model.layers[0].name)
-y_test = loader.get_label_data(consts.TRAIN_LABEL_PATH)
+X_test = loader.get_image_data(consts.TEST_IMAGE_PATH, model.layers[0].name)
+y_test = loader.get_label_data(consts.TEST_LABEL_PATH)
 
 history = model.fit(X_train,
                     utils.get_one_hot(y_train),
