@@ -41,7 +41,7 @@ checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=0, save_best_o
 X_train = loader.get_image_data(consts.TRAIN_IMAGE_PATH, model.layers[0].name)
 y_train = loader.get_label_data(consts.TRAIN_LABEL_PATH)
 
-X_nan = loader.get_image_data(consts.NAN_IMAGE_PATH, model.layers[0].name, rotate_hack=True)
+X_nan = loader.get_image_data(consts.NAN_IMAGE_PATH, model.layers[0].name)
 y_nan = np.full((len(X_nan,)), -1)
 
 X_train = np.concatenate((X_train, X_nan), axis=0)

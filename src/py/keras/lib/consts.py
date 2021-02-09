@@ -4,8 +4,8 @@ TRAIN_LABEL_PATH = '../../../data/train-labels-idx1-ubyte'
 TEST_IMAGE_PATH  = '../../../data/t10k-images-idx3-ubyte'
 TEST_LABEL_PATH  = '../../../data/t10k-labels-idx1-ubyte'
 
-NAN_IMAGE_PATH   = '../../../data/emnist-letters-train-images-idx3-ubyte'
-NAN_LABEL_PATH   = '../../../data/emnist-letters-train-labels-idx1-ubyte'
+NAN_IMAGE_PATH   = '../../../data/scrubbed-letters-idx3-ubyte'
+# NAN_LABEL_PATH   = '../../../data/emnist-letters-train-labels-idx1-ubyte'
 
 # # temp testing the flip
 # TEST_IMAGE_PATH = '../../../data/train-images-idx3-ubyte'
