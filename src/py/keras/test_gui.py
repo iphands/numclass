@@ -71,7 +71,7 @@ class App:
             x, y = event.x, event.y
             if self.canvas.old_coords:
                 x1, y1 = self.canvas.old_coords
-                self.draw_circle(x, y, 15)
+                self.draw_circle(x, y, 13)
             self.canvas.old_coords = x, y
 
 App()
