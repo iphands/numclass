@@ -84,9 +84,9 @@ with open('../../data/emnist-letters-train-images-idx3-ubyte', 'rb') as f:
         for i in shape:
             outf.write((i).to_bytes(4, byteorder='big'))
 
+        count = 0
         for i in range(shape[0]):
             data = get_next_image(f, shape)
-
             data = np.asarray(data)
             data = np.reshape(data, (28,28))
             data = np.rot90(data, k=3)
@@ -99,6 +99,19 @@ with open('../../data/emnist-letters-train-images-idx3-ubyte', 'rb') as f:
                 continue
 
             outf.write(data)
-
+            count += 1
             # print_image(i, data, shape)
             # save_image(i, data, shape)
+
+        outf.seek(0)
+        outf.write(b'\0')
+        outf.write(b'\0')
+        outf.write(dtype)
+        outf.write(dimen)
+
+        print(count)
+        print(shape)
+        shape[0] = count
+        
+        for i in shape:
+            outf.write((i).to_bytes(4, byteorder='big'))
