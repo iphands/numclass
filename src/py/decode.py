@@ -74,12 +74,31 @@ with open('../../data/emnist-letters-train-images-idx3-ubyte', 'rb') as f:
         shape.append(int.from_bytes(f.read(4), 'big'))
 
     # for i in range(shape[0]):
-    for i in range(1024):
-        data = get_next_image(f, shape)
-        data = np.asarray(data)
-        data = np.reshape(data, (28,28))
-        data = np.rot90(data, k=3)
-        data = np.fliplr(data)
-        data = np.reshape(data, (28*28))
-        # print_image(i, data, shape)
-        save_image(i, data, shape)
+
+    with open('../../data/scrubbed-letters-idx3-ubyte', 'wb') as outf:
+        outf.write(b'\0')
+        outf.write(b'\0')
+        outf.write(dtype)
+        outf.write(dimen)
+
+        for i in shape:
+            outf.write((i).to_bytes(4, byteorder='big'))
+
+        for i in range(shape[0]):
+            data = get_next_image(f, shape)
+
+            data = np.asarray(data)
+            data = np.reshape(data, (28,28))
+            data = np.rot90(data, k=3)
+            data = np.fliplr(data)
+            data = np.reshape(data, (28*28))
+
+            j = labels[i]
+            if j == 9 or j == 10 or j == 15 or j == 17 or j == 26:
+                # print_image(i, data, shape)
+                continue
+
+            outf.write(data)
+
+            # print_image(i, data, shape)
+            # save_image(i, data, shape)
