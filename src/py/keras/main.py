@@ -1,3 +1,4 @@
+import time
 import os
 
 import numpy as np
@@ -13,16 +14,20 @@ from keras.callbacks import ModelCheckpoint
 
 model = Sequential()
 model.add(Input(shape=(28, 28, 1)))
-model.add(Conv2D(16,  (4, 4), padding="same", activation="relu"))
-model.add(Conv2D(16,  (3, 3), padding="same", activation="relu"))
-model.add(Conv2D(16,  (3, 3), padding="same", activation="relu"))
+# model.add(Conv2D(16,  (4, 4), padding="same", activation="relu"))
+# model.add(Conv2D(16,  (3, 3), padding="same", activation="relu"))
+model.add(Conv2D(8,  (3, 3), padding="same", activation="relu"))
+model.add(Conv2D(8,  (3, 3), padding="same", activation="relu"))
+model.add(Conv2D(4,  (3, 3), padding="same", activation="relu"))
+model.add(Conv2D(8,  (3, 3), padding="same", activation="relu"))
 
 model.add(Flatten())
-model.add(Dropout(0.5))
+model.add(Dropout(0.15))
 
-model.add(Dense((28*28)*2, activation='relu'))
-model.add(Dense(512, activation='relu'))
-model.add(Dense(128, activation='relu'))
+model.add(Dense(32, activation='relu'))
+model.add(Dense(32, activation='relu'))
+model.add(Dense(16, activation='relu'))
+model.add(Dense(32, activation='relu'))
 
 # final layer of 10
 model.add(Dense(consts.RESULT_COUNT, activation='softmax'))
@@ -30,11 +35,7 @@ model.add(Dense(consts.RESULT_COUNT, activation='softmax'))
 # compile the keras model
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-print()
-print('Model description is: {}'.format(utils.get_model_desc(model)))
-print()
-
-filepath = './results/' + utils.get_model_desc(model) + '/epoch_{epoch:02d}_loss_{val_loss:.16f}.hdf5'
+filepath = './results/' + str(int(time.time())) + '/' + utils.get_model_desc(model) + '/epoch_{epoch:02d}_loss_{val_loss:.16f}.hdf5'
 checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=0, save_best_only=False, mode='max')
 
 X_train = loader.get_image_data(consts.TRAIN_IMAGE_PATH, model.layers[0].name)
