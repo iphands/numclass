@@ -31,7 +31,13 @@ model.add(Dense(consts.RESULT_COUNT, activation='softmax'))
 # compile the keras model
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-filepath = './results/' + utils.get_seconds() + '/' + utils.get_model_desc(model) + '/epoch_{epoch:02d}_loss_{val_loss:.16f}.hdf5'
+results_dir = './results/' + utils.get_seconds()
+os.mkdir(results_dir)
+with open('{}/model_desc.txt'.format(results_dir), 'w') as f:
+    f.write(utils.get_model_desc(model))
+
+filepath = results_dir + '/epoch_{epoch:02d}_loss_{val_loss:.16f}.hdf5'
+
 checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=0, save_best_only=False, mode='max')
 
 my_images, my_labels = loader.get_my_image_data()
