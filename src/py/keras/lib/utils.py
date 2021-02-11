@@ -1,6 +1,9 @@
+import time
 from . import consts as consts
 from keras.utils import np_utils
 
+def get_seconds():
+    return str(int(time.time()))
 
 def get_model_shortname():
     lname  = '_'.join([str(l) for l in consts.LAYERS])

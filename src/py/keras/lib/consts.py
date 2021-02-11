@@ -13,6 +13,8 @@ NAN_IMAGE_PATH   = '../../../data/scrubbed-letters-idx3-ubyte'
 # TRAIN_IMAGE_PATH  = '../../../data/t10k-images-idx3-ubyte'
 # TRAIN_LABEL_PATH  = '../../../data/t10k-labels-idx1-ubyte'
 
+MY_IMAGES='../../../my_data'
+
 RESULT_COUNT = 11
 
 EPOCHS = 512

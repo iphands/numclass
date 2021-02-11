@@ -6,6 +6,7 @@ from PIL import Image, ImageDraw
 from keras.models import load_model
 
 from lib import consts as consts
+from lib import utils as utils
 from lib import data_loader as loader
 
 # To not let numpy print() squish arrays
@@ -28,6 +29,7 @@ class App:
         root.bind('<ButtonPress-1>', self.mouse_down)
         root.bind('<ButtonRelease-1>', self.mouse_up)
         root.bind('<Escape>', self.guess)
+        root.bind('<Key>', self.try_save)
         root.bind('<space>', self.clear)
         root.mainloop()
 
@@ -45,6 +47,13 @@ class App:
 
     def mouse_down(self, e):
         self.mousedown = True
+
+    def try_save(self, e):
+        image_path = '{}/{}.png'.format(consts.MY_IMAGES, utils.get_seconds())
+        if e.char == '-':
+            print('Saving bad guess image to: {}'.format(image_path))
+            im = self.image.resize((28, 28), resample=Image.LANCZOS)
+            im.save(image_path, 'PNG')
 
     def guess(self, e):
         im = self.image.resize((28, 28), resample=Image.LANCZOS)
