@@ -5,8 +5,8 @@ AI/ML classifier trained (primarily) on the MNIST handwritten digit data
 ## Features
 
 - Detection of handwritten digits
-- Uses MNIST digit data for training 0-9
-- Uses MNIST alphabet data for training NaN (not a number)
+- Can use [MNIST digit data for](http://yann.lecun.com/exdb/mnist/) (or similar) training 0-9
+- Can use [emnist alphabet data](https://www.kaggle.com/crawford/emnist/version/1) (or similar) for training NaN (not a number)
 - Uses custom data for training (my_data) 0-9 and NaN
 - Frontend testing tool
   - Draw an image, press esc to guess
