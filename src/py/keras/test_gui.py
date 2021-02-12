@@ -66,6 +66,8 @@ class App:
             arr = arr.reshape((1, 28*28))
 
         predicted = mnist_model.predict_classes(arr)
+        print(mnist_model.predict(arr))
+
         if predicted[0] < 10:
             print('My ML guess is: {}'.format(predicted[0]))
         else:
