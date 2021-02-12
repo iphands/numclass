@@ -17,11 +17,13 @@ model.add(Conv2D(16, (4, 4), padding="same", activation="relu"))
 model.add(Conv2D(8,  (3, 3), padding="same", activation="relu"))
 model.add(Conv2D(4,  (3, 3), padding="same", activation="relu"))
 model.add(Conv2D(4,  (3, 3), padding="same", activation="relu"))
+model.add(Conv2D(4,  (3, 3), padding="same", activation="relu"))
 
 model.add(Flatten())
-model.add(Dropout(0.15))
+model.add(Dropout(0.05))
 
 model.add(Dense(64, activation='relu'))
+model.add(Dense(32, activation='relu'))
 model.add(Dense(32, activation='relu'))
 model.add(Dense(16, activation='relu'))
 
