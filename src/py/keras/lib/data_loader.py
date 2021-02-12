@@ -36,7 +36,8 @@ def get_label_data(file_in, extra=None):
 def print_image(data, shape):
     print()
     for y in range(shape[0]):
-        if y > 22: return
+        if y < 4:  continue
+        if y > 25: return
         for x in range(shape[1]):
             idx = x + (y * shape[1])
             val = data[idx]
