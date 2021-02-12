@@ -13,19 +13,18 @@ from keras.callbacks import ModelCheckpoint
 
 model = Sequential()
 model.add(Input(shape=(28, 28, 1)))
-model.add(Conv2D(16, (4, 4), padding="same", activation="relu"))
+model.add(Conv2D(16, (6, 6), padding="same", activation="relu"))
 model.add(Conv2D(16, (3, 3), padding="same", activation="relu"))
+model.add(Conv2D(8,  (9, 9), padding="same", activation="relu"))
 model.add(Conv2D(8,  (3, 3), padding="same", activation="relu"))
-model.add(Conv2D(4,  (3, 3), padding="same", activation="relu"))
-model.add(Conv2D(4,  (3, 3), padding="same", activation="relu"))
-model.add(Conv2D(4,  (3, 3), padding="same", activation="relu"))
+model.add(Conv2D(8,  (6, 6), padding="same", activation="relu"))
 
 model.add(Flatten())
-model.add(Dropout(0.05))
+model.add(Dropout(0.125))
 
-model.add(Dense(512, activation='relu'))
 model.add(Dense(256, activation='relu'))
-model.add(Dense(128, activation='relu'))
+model.add(Dense(256, activation='relu'))
+model.add(Dense(64, activation='relu'))
 
 # final layer of 10
 model.add(Dense(consts.RESULT_COUNT, activation='softmax'))

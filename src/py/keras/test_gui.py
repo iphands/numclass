@@ -72,12 +72,12 @@ class App:
         predicted = mnist_model.predict_classes(arr)
 
         # Debugging
-        print(mnist_model.predict(arr))
+        # print(mnist_model.predict(arr))
 
         if predicted[0] < 10:
-            print('My ML guess is: {}'.format(predicted[0]))
+            print('Guess is: {}'.format(predicted[0]))
         else:
-            print('My ML guess is: NaN')
+            print('Guess is: NaN')
 
     def clear(self, e):
         self.canvas.delete("all")
