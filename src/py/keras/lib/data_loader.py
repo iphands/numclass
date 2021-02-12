@@ -28,7 +28,7 @@ def get_label_data(file_in, extra=None):
             labels.append(int.from_bytes(f.read(1), 'big'))
 
     if extra:
-        print('Adding {} labels'.format(len(extra)))
+        print('Adding {} extra labels'.format(len(extra)))
         labels = labels + extra
 
     return np.reshape(labels, (len(labels)))
@@ -40,14 +40,19 @@ def print_image(data, shape):
             idx = x + (y * shape[1])
             val = data[idx]
 
-            # remove compression fuzz?
-            if val < 0x10: val = 0x00
-
             if val == 0x00:
                 print('  ', end=' ')
             else:
                 print('{:02X}'.format(val), end=' ')
         print()
+
+def defuzz_image(arr):
+    for y in range(arr.shape[0]):
+        for x in range(arr.shape[1]):
+            val = arr[y][x]
+            if val != 0x00 and val < 0x10:
+                arr[y][x] = 0x00
+    return arr
 
 def get_my_image_data():
     images = []
@@ -58,9 +63,10 @@ def get_my_image_data():
         if isfile(full_path):
             im  = Image.open(full_path)
             arr = np.array(im)
-            arr = np.reshape(im, (28*28))
+            arr = defuzz_image(arr)
+            arr = np.reshape(arr, (28*28))
             lbl = f.split('-')[0]
-            # print(f.split('-')[0])
+            # print(lbl)
             # print_image(arr, (28, 28))
             images.append(arr)
             labels.append(lbl)
@@ -83,7 +89,7 @@ def get_image_data(file_in, layer_type, extra=None):
             images.append(data)
 
     if extra:
-        print('Adding {} images'.format(len(extra)))
+        print('Adding {} extra images'.format(len(extra)))
         images = images + extra
 
     # convert to floats and / 255 to get 0.0 - 1.0
