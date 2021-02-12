@@ -46,7 +46,7 @@ X_train = loader.get_image_data(consts.TRAIN_IMAGE_PATH, model.layers[0].name, e
 y_train = loader.get_label_data(consts.TRAIN_LABEL_PATH, extra=my_labels)
 
 X_nan = loader.get_image_data(consts.NAN_IMAGE_PATH, model.layers[0].name)
-y_nan = np.full((len(X_nan,)), -1)
+y_nan = np.full((len(X_nan,)), 10)
 
 X_train = np.concatenate((X_train, X_nan), axis=0)
 y_train = np.concatenate((y_train, y_nan), axis=None)
