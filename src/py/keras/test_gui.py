@@ -59,6 +59,10 @@ class App:
         im = self.image.resize((28, 28), resample=Image.LANCZOS)
         im.save('/tmp/last.jpg', 'JPEG', quality=99)
         arr = np.array(im)
+        arr = loader.defuzz_image(arr)
+
+        # Debugging
+        loader.print_image(arr.reshape(28*28), (28,28))
 
         if mnist_model.layers[0].name == 'conv2d':
             arr = arr.reshape((1, 28, 28, 1))
@@ -66,6 +70,8 @@ class App:
             arr = arr.reshape((1, 28*28))
 
         predicted = mnist_model.predict_classes(arr)
+
+        # Debugging
         print(mnist_model.predict(arr))
 
         if predicted[0] < 10:
