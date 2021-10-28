@@ -1,5 +1,6 @@
 import sys
 import numpy as np
+import os
 
 from keras.models import load_model
 
@@ -24,10 +25,14 @@ print(len(incorrect_indices)," classified incorrectly")
 
 fail_count = 0
 
+training_images_dir=os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'data', 'train_images', 'all'))
+# just in case, but come on ...
+training_images_dir.replace(os.sep, '/')
+
 for i, guess in enumerate(predicted_classes):
     if guess != y_test[i]:
-        print('file:///home/iphands/prog/numclass/data/train_images/all/{}.jpg guessed {} is {}'
-              .format(i, guess, y_test[i]))
+        print('file:///{}/{}.jpg guessed {} is {}'
+              .format(training_images_dir, i, guess, y_test[i]))
         fail_count += 1
 
     if fail_count > 25:
