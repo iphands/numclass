@@ -1,4 +1,5 @@
 # numclass
+
 AI/ML classifier trained (primarily) on the MNIST handwritten digit data
 
 
@@ -13,7 +14,14 @@ AI/ML classifier trained (primarily) on the MNIST handwritten digit data
   - Press space to clear
   - Press - to save image for training
 
+## Quickstart OSX
+
+```shell
+$ ./osx_quickstart.sh
+```
+
 ## Demo
+
 <table>
  <tr>
   <td><img src="https://raw.githubusercontent.com/iphands/numclass/main/assets/guesses.gif" alt="Example guesses animated gif"></td>

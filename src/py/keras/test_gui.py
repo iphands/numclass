@@ -69,13 +69,15 @@ class App:
         else:
             arr = arr.reshape((1, 28*28))
 
-        predicted = mnist_model.predict_classes(arr)
+        predicted = mnist_model.predict(arr)
+        classes   = np.argmax(predicted, axis=1)
+
 
         # Debugging
         # print(mnist_model.predict(arr))
 
-        if predicted[0] < 10:
-            print('Guess is: {}'.format(predicted[0]))
+        if classes[0] < 10:
+            print('Guess is: {}'.format(classes[0]))
         else:
             print('Guess is: NaN')
 
